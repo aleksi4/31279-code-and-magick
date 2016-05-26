@@ -2,7 +2,6 @@ var getMessage = function (a, b) {
   if (typeof(a) === "boolean") {
     if (a === true) {
       return "Я попал в " + b;
-      // console.log("hi");
     }
     else {
       return "Я никуда не попал";
