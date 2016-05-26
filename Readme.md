@@ -1,7 +1,7 @@
 # Личный проект «Код и Магия» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Александр Никонов](https://up.htmlacademy.ru/javascript/5/user/31279).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Наумов](https://up.htmlacademy.ru/javascript/5/user/194254).
 
 ---
 
