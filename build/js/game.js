@@ -376,6 +376,7 @@
 
     _screenText: function(text, width) {
       text = text.split(' ');
+      width = width / 12 - 2;
       var lineHeight = 24;
       this.ctx.font = '16px "PT Mono"';
       this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
@@ -392,7 +393,7 @@
           }
           console.log(i);
         }
-        this.ctx.strokeText(str, 320, 40 + lineHeight);
+        this.ctx.strokeText(str, 310, 30 + lineHeight);
         lineHeight += 24;
         text.splice(0, i);
       }
@@ -408,16 +409,16 @@
       var introText = 'Я умею перемещаться и летать по нажатию на стрелки. А если нажать шифт, я выстрелю файрболом';
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          this._screenText(winText, 26);
+          this._screenText(winText, 300);
           break;
         case Verdict.FAIL:
-          this._screenText(failText, 26);
+          this._screenText(failText, 300);
           break;
         case Verdict.PAUSE:
-          this._screenText(pauseText, 26);
+          this._screenText(pauseText, 300);
           break;
         case Verdict.INTRO:
-          this._screenText(introText, 26);
+          this._screenText(introText, 300);
           break;
       }
     },
