@@ -387,8 +387,7 @@
         for (var i = 0; i < text.length; i++) {
           if (str.length < width) {
             str += text[i] + ' ';
-          }
-          else {
+          } else {
             break;
           }
           console.log(i);
