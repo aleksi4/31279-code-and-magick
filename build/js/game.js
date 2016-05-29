@@ -376,7 +376,7 @@
 
     _screenText: function(text, width) {
       text = text.split(' ');
-      width = width / 11 - 2;
+      width = (width - 20) / 11;
       var lineHeight = 24;
       this.ctx.font = '16px "PT Mono"';
       this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
