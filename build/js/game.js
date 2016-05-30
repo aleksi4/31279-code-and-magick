@@ -376,33 +376,27 @@
 
     _screenText: function(text, width) {
       text = text.split(' ');
-      width = (width - 20) / 11;
+      var textOutLen = (width - 20) / 10;
       var textOut = [];
       var lineHeight = 24;
       var heightCanvas = 15;
-      var k = 0;
       while (text.length > 0) {
         var str = '';
-        for (var i = 0; i < text.length; i++) {
-          if (str.length < width) {
-            str += text[i] + ' ';
-          } else {
-            break;
-          }
+        for (var i = 0; i < text.length && text[i].length <= (textOutLen - str.length); i++) {
+          str += text[i] + ' ';
         }
-        textOut[k] = str;
-        k++;
-        console.log(textOut);
+        textOut.push(str);
         heightCanvas += 24;
         text.splice(0, i);
       }
-      this.ctx.font = '16px "PT Mono"';
       this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-      this.ctx.fillRect(310, 40, 300, heightCanvas);
+      this.ctx.fillRect(310, 110, width, heightCanvas);
       this.ctx.fillStyle = '#ffffff';
-      this.ctx.fillRect(300, 30, 300, heightCanvas);
+      this.ctx.fillRect(300, 100, width, heightCanvas);
+      this.ctx.font = '16px "PT Mono"';
+      this.ctx.fillStyle = '#000000';
       for (var j = 0; j < textOut.length; j++) {
-        this.ctx.strokeText(textOut[j], 310, 30 + lineHeight);
+        this.ctx.fillText(textOut[j], 310, 100 + lineHeight);
         lineHeight += 24;
       }
     },
@@ -412,7 +406,7 @@
      */
     _drawPauseScreen: function() {
       var winText = 'Это война, детка! Я хоть и Синий, но все же Пендальф!';
-      var failText = 'Я умею перемещаться... думал что умею... всё промпало... я выстрелю файрболом';
+      var failText = 'Я умею перемещаться... думал что умею... всё пропало... я выстрелю файрболом';
       var pauseText = 'Я умею перемещаться... но я устал... мне нужен отдых.';
       var introText = 'Я умею перемещаться и летать по нажатию на стрелки. А если нажать шифт, я выстрелю файрболом';
       switch (this.state.currentStatus) {
