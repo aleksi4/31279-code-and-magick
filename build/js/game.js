@@ -377,12 +377,10 @@
     _screenText: function(text, width) {
       text = text.split(' ');
       width = (width - 20) / 11;
+      var textOut = [];
       var lineHeight = 24;
-      this.ctx.font = '16px "PT Mono"';
-      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-      this.ctx.fillRect(310, 40, 300, 110);
-      this.ctx.fillStyle = '#ffffff';
-      this.ctx.fillRect(300, 30, 300, 110);
+      var heightCanvas = 15;
+      var k = 0;
       while (text.length > 0) {
         var str = '';
         for (var i = 0; i < text.length; i++) {
@@ -391,11 +389,21 @@
           } else {
             break;
           }
-          console.log(i);
         }
-        this.ctx.strokeText(str, 310, 30 + lineHeight);
-        lineHeight += 24;
+        textOut[k] = str;
+        k++;
+        console.log(textOut);
+        heightCanvas += 24;
         text.splice(0, i);
+      }
+      this.ctx.font = '16px "PT Mono"';
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      this.ctx.fillRect(310, 40, 300, heightCanvas);
+      this.ctx.fillStyle = '#ffffff';
+      this.ctx.fillRect(300, 30, 300, heightCanvas);
+      for (var j = 0; j < textOut.length; j++) {
+        this.ctx.strokeText(textOut[j], 310, 30 + lineHeight);
+        lineHeight += 24;
       }
     },
 
