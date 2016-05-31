@@ -382,10 +382,8 @@
       var heightCanvas = 15;
       var i = 0;
       while (i < text.length) {
-        var str = '';
-        while (i < text.length && text[i].length <= (textOutLen - str.length)) {
+        for (var str = ''; i < text.length && text[i].length <= (textOutLen - str.length); i++) {
           str += text[i] + ' ';
-          i++;
         }
         textOut.push(str);
         heightCanvas += 24;
