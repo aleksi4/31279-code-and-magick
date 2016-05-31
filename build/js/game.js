@@ -380,14 +380,15 @@
       var textOut = [];
       var lineHeight = 24;
       var heightCanvas = 15;
-      while (text.length > 0) {
+      var i = 0;
+      while (i < text.length) {
         var str = '';
-        for (var i = 0; i < text.length && text[i].length <= (textOutLen - str.length); i++) {
+        while (i < text.length && text[i].length <= (textOutLen - str.length)) {
           str += text[i] + ' ';
+          i++;
         }
         textOut.push(str);
         heightCanvas += 24;
-        text.splice(0, i);
       }
       this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
       this.ctx.fillRect(310, 110, width, heightCanvas);
