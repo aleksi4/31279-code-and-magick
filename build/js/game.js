@@ -380,8 +380,7 @@
       var textOut = [];
       var lineHeight = 24;
       var heightCanvas = 15;
-      var i = 0;
-      while (i < text.length) {
+      for (var i = 0; i < text.length;) {
         for (var str = ''; i < text.length && text[i].length <= (textOutLen - str.length); i++) {
           str += text[i] + ' ';
         }
