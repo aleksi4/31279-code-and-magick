@@ -374,22 +374,61 @@
       }
     },
 
+    _screenText: function(text, width) {
+      text = text.split(' ');
+      var textLineLength = (width - 20) / 10;
+      var textOut = [];
+      var lineHeight = 24;
+      var padding = 10;
+      var str = '';
+      for (var i = 0; i < text.length; i++) {
+        if (text[i].length > (textLineLength - str.length) && (i === text.length - 1)) {
+          textOut.push(str);
+          str = text[i];
+          textOut.push(str);
+        } else if (text[i].length > (textLineLength - str.length)) {
+          textOut.push(str);
+          str = text[i] + ' ';
+        } else if (i === text.length - 1) {
+          str += text[i];
+          textOut.push(str);
+        } else {
+          str += text[i] + ' ';
+        }
+      }
+      var heightCanvas = padding * 2 + textOut.length * lineHeight;
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      this.ctx.fillRect(310, 110, width, heightCanvas);
+      this.ctx.fillStyle = '#ffffff';
+      this.ctx.fillRect(300, 100, width, heightCanvas);
+      this.ctx.font = '16px "PT Mono"';
+      this.ctx.fillStyle = '#000000';
+      for (var j = 0; j < textOut.length; j++) {
+        this.ctx.fillText(textOut[j], 310, 100 + lineHeight);
+        lineHeight += 24;
+      }
+    },
+
     /**
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
+      var winText = 'Это война, детка! Я хоть и Синий, но все же Пендальф!';
+      var failText = 'Я умею перемещаться... думал что умею... всё пропало... я выстрелю файрболом';
+      var pauseText = 'Я умею перемещаться... но я устал... мне нужен отдых';
+      var introText = 'Я умею перемещаться и летать по нажатию на стрелки. А если нажать шифт, я выстрелю файрболом';
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          console.log('you have won!');
+          this._screenText(winText, 190);
           break;
         case Verdict.FAIL:
-          console.log('you have failed!');
+          this._screenText(failText, 200);
           break;
         case Verdict.PAUSE:
-          console.log('game is on pause!');
+          this._screenText(pauseText, 240);
           break;
         case Verdict.INTRO:
-          console.log('welcome to the game! Press Space to start');
+          this._screenText(introText, 260);
           break;
       }
     },
