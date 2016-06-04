@@ -75,20 +75,22 @@
 
     <fieldset class="review-form-group">
       <label for="review-name" class="review-form-label">Имя</label><br>
-      <input type="text" name="review-name" id="review-name" class="review-form-field review-form-field-name" required>
+      <input type="text" name="review-name" id="review-name" class="review-form-field review-form-field-name" data-label="review-name-label" data-error="review-name-error" required>
+      <div id="review-name-error" class="error error-name">&#10033; Введите, пожалуйста, имя</div>
     </fieldset>
 
     <fieldset class="review-form-group">
       <label for="review-text" class="review-form-label">Отзыв</label><br>
-      <textarea name="review-text" id="review-text" class="review-form-field review-form-field-text" cols="32" rows="8" required></textarea>
+      <textarea name="review-text" id="review-text" class="review-form-field review-form-field-text" cols="32" rows="8" data-label="review-text-label" data-error="review-text-error" required></textarea>
+      <div id="review-text-error" class="error error-text">&#10033; Введите, пожалуйста, пароль</div>
     </fieldset>
 
     <div class="review-form-controls">
       <button class="review-form-control review-submit" type="submit" disabled>Добавить отзыв</button>
       <div class="review-form-control review-fields">
         Осталось заполнить:<br>
-        <label for="review-name" class="review-fields-label review-fields-name">имя</label>
-        <label for="review-text" class="review-fields-label review-fields-text">отзыв</label>
+        <label for="review-name" id="review-name-label" class="review-fields-label review-fields-name">имя</label>
+        <label for="review-text" id="review-text-label" class="review-fields-label review-fields-text">отзыв</label>
       </div>
     </div>
   </form>
