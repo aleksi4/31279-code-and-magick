@@ -8,13 +8,9 @@
   var reviewMark = reviewForm.elements['review-mark'];
   var reviewText = reviewForm.elements['review-text'];
   var reviewName = reviewForm.elements['review-name'];
-  // var reviewFieldsText = document.querySelector('.review-fields-text');
-  // var reviewFieldsName = document.querySelector('.review-fields-name');
   var reviewFields = document.querySelector('.review-fields');
   var reviewSubmit = document.querySelector('.review-submit');
   var reviewFormGroupMark = document.querySelector('.review-form-group-mark');
-  // var errorName = document.querySelector('.error-name');
-  // var errorText = document.querySelector('.error-text');
 
 
   var setSubmitDisabled = function() {
