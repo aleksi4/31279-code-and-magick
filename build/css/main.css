@@ -559,3 +559,7 @@ input[type=radio]:checked + .review-mark-label {
 .error-text {
   bottom: -10px;
 }
+
+.error::before {
+  content: "\2217 \0020";
+}

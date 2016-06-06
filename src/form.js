@@ -11,7 +11,10 @@
   var reviewFields = document.querySelector('.review-fields');
   var reviewSubmit = document.querySelector('.review-submit');
   var reviewFormGroupMark = document.querySelector('.review-form-group-mark');
-
+  var divNameError = document.getElementById('review-name-error');
+  divNameError.appendChild(document.createTextNode(reviewName.validationMessage));
+  var divTextError = document.getElementById('review-text-error');
+  divTextError.appendChild(document.createTextNode(reviewText.validationMessage));
 
   var setSubmitDisabled = function() {
     if (reviewForm.checkValidity()) {
@@ -24,8 +27,8 @@
   };
 
   var setVisibility = function(field) {
-    var label = document.querySelector('#' + field.dataset.label);
-    var error = document.querySelector('#' + field.dataset.error);
+    var label = document.getElementById(field.getAttribute('id') + '-label');
+    var error = document.getElementById(field.getAttribute('id') + '-error');
     if (field.validity.valid) {
       label.classList.add('invisible');
       error.classList.add('invisible');
