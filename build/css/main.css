@@ -416,6 +416,8 @@ footer p {
 }
 
 .review-form-group {
+  position: relative;
+
   margin: 0;
   margin-bottom: 15px;
   padding: 0;
@@ -542,4 +544,22 @@ input[type=radio]:checked + .review-mark-label {
   font-weight: bold;
   font-size: 14px;
   color: #ffffff;
+}
+
+.error {
+  position: absolute;
+  bottom: -15px;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  color: #e32242;
+}
+
+.error-text {
+  bottom: -10px;
+}
+
+.error::before {
+  content: "\2217 \0020";
 }
