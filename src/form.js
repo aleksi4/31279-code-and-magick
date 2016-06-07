@@ -15,6 +15,22 @@
   divNameError.appendChild(document.createTextNode(reviewName.validationMessage));
   var divTextError = document.getElementById('review-text-error');
   divTextError.appendChild(document.createTextNode(reviewText.validationMessage));
+  var browserCookies = require('browser-cookies');
+  reviewName.value = browserCookies.get('name');
+  reviewMark.value = browserCookies.get('mark');
+
+  var dateNow = new Date();
+  var date = dateNow.getDate();
+  var month = dateNow.getMonth();
+  var year = dateNow.getFullYear();
+  if (month <= 5 && date < 17) {
+    year -= 1;
+  }
+  var birthday = new Date(year, 5, 17);
+  var timeNow = dateNow.getTime();
+  var timeBirthday = birthday.getTime();
+  var cookTime = (timeNow - timeBirthday) / 1000 / 60 / 60 / 24;
+
 
   var setSubmitDisabled = function() {
     if (reviewForm.checkValidity()) {
@@ -38,12 +54,30 @@
     }
   };
 
-  reviewFormGroupMark.onchange = function() {
+  var setTextRequired = function() {
     if (reviewMark.value > 3) {
       reviewText.removeAttribute('required');
     } else {
       reviewText.setAttribute('required', 'required');
     }
+  };
+
+  setTextRequired();
+  setVisibility(reviewName);
+  setVisibility(reviewText);
+  setSubmitDisabled();
+
+  reviewForm.onsubmit = function(evt) {
+    evt.preventDefault();
+
+    browserCookies.set('name', reviewName.value, {expires: cookTime});
+    browserCookies.set('mark', reviewMark.value, {expires: cookTime});
+
+    this.submit();
+  };
+
+  reviewFormGroupMark.onchange = function() {
+    setTextRequired();
     setVisibility(reviewText);
     setSubmitDisabled();
   };
