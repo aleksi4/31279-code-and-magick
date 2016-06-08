@@ -19,17 +19,15 @@
   reviewName.value = browserCookies.get('name');
   reviewMark.value = browserCookies.get('mark');
 
-  var dateNow = new Date();
-  var date = dateNow.getDate();
-  var month = dateNow.getMonth();
-  var year = dateNow.getFullYear();
-  if (month <= 5 && date < 17) {
-    year -= 1;
+  var dateNow = new Date(2016, 5, 16);
+  var birthday = new Date().setFullYear(dateNow.getFullYear(), 5, 17);
+  if (dateNow.getMonth() <= 5 && dateNow.getDate() <= 17) {
+    birthday = new Date().setFullYear(dateNow.getFullYear() - 1, 5, 17);
   }
-  var birthday = new Date(year, 5, 17);
   var timeNow = dateNow.getTime();
-  var timeBirthday = birthday.getTime();
-  var cookTime = (timeNow - timeBirthday) / 1000 / 60 / 60 / 24;
+  var cookTime = Math.ceil((timeNow - birthday) / 1000 / 60 / 60 / 24);
+
+  console.log(cookTime);
 
 
   var setSubmitDisabled = function() {
@@ -67,13 +65,9 @@
   setVisibility(reviewText);
   setSubmitDisabled();
 
-  reviewForm.onsubmit = function(evt) {
-    evt.preventDefault();
-
+  reviewForm.onsubmit = function() {
     browserCookies.set('name', reviewName.value, {expires: cookTime});
     browserCookies.set('mark', reviewMark.value, {expires: cookTime});
-
-    this.submit();
   };
 
   reviewFormGroupMark.onchange = function() {
