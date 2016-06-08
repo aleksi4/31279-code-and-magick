@@ -19,16 +19,15 @@
   reviewName.value = browserCookies.get('name');
   reviewMark.value = browserCookies.get('mark');
 
-  var dateNow = new Date(2016, 5, 16);
-  var birthday = new Date().setFullYear(dateNow.getFullYear(), 5, 17);
+  var dateNow = new Date();
+  var birthday;
   if (dateNow.getMonth() <= 5 && dateNow.getDate() <= 17) {
     birthday = new Date().setFullYear(dateNow.getFullYear() - 1, 5, 17);
+  } else {
+    birthday = new Date().setFullYear(dateNow.getFullYear(), 5, 17);
   }
   var timeNow = dateNow.getTime();
   var cookTime = Math.ceil((timeNow - birthday) / 1000 / 60 / 60 / 24);
-
-  console.log(cookTime);
-
 
   var setSubmitDisabled = function() {
     if (reviewForm.checkValidity()) {
