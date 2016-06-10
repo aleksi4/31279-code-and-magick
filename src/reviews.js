@@ -34,10 +34,11 @@ var getReviewElement = function(data, container) {
   element.querySelector('.review-text').textContent = data.description;
   element.querySelector('.review-rating').classList.add(arrReviewRating[data.rating - 1]);
   container.appendChild(element);
-  reviewsFilter.classList.remove('invisible');
   return element;
 };
 
 window.reviews.forEach(function(review) {
   getReviewElement(review, reviewsList);
 });
+
+reviewsFilter.classList.remove('invisible');
