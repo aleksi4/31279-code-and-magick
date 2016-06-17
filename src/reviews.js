@@ -107,12 +107,12 @@ var getFilteredReviews = function(reviewsArr, filter) {
       break;
   }
 
-  if (reviewsToFilter.length === 0) {
+  if (reviewsToFilter.length === 0 && !alert) {
     var p = document.createElement('p');
     p.className = 'alert';
     p.appendChild(document.createTextNode(text));
     reviewsContainer.insertBefore(p, reviewsList);
-  } else if (alert) {
+  } else if (reviewsToFilter.length !== 0 && alert) {
     reviewsContainer.removeChild(alert);
   }
 
