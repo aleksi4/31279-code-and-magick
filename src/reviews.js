@@ -6,7 +6,6 @@ var reviewsList = document.querySelector('.reviews-list');
 var templateElement = document.querySelector('#review-template');
 var elementToClone;
 
-
 reviewsFilter.classList.add('invisible');
 reviewsContainer.classList.add('reviews-list-loading');
 
@@ -16,11 +15,9 @@ if ('content' in templateElement) {
   elementToClone = templateElement.querySelector('.review');
 }
 
-
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 
 var reviews = [];
-
 
 var getReviewElement = function(data, container) {
   var element = elementToClone.cloneNode(true);
@@ -51,18 +48,15 @@ var getReviews = function(callback) {
   xhr.onload = function(evt) {
     var loadedData = JSON.parse(evt.target.response);
     callback(loadedData);
+    if (xhr.status !== 200) {
+      reviewsContainer.classList.add('reviews-load-failure');
+    }
   };
 
   xhr.open('GET', REVIEWS_LOAD_URL);
   xhr.send();
 
   xhr.timeout = 30000;
-
-  xhr.onreadystatechange = function() {
-    if (xhr.status !== 200) {
-      reviewsContainer.classList.add('reviews-load-failure');
-    }
-  };
 };
 
 var renderReviews = function(reviewsArr) {
@@ -76,25 +70,16 @@ var renderReviews = function(reviewsArr) {
 
 var getFilteredReviews = function(reviewsArr, filter) {
   var reviewsToFilter = reviewsArr.slice(0);
-  reviewsContainer.classList.remove('reviews-list-loading');
-
-  reviewsFilter.classList.remove('invisible');
-
-  var p = document.createElement('p');
-  p.className = 'alert';
   var text = 'Нет подходящих отзывов';
   var alert = document.querySelector('.alert');
 
+  reviewsFilter.classList.remove('invisible');
+
+
   switch (filter) {
     case 'reviews-all':
-      if (alert) {
-        reviewsContainer.removeChild(alert);
-      }
       break;
     case 'reviews-recent':
-      if (alert) {
-        reviewsContainer.removeChild(alert);
-      }
       reviewsToFilter = reviewsToFilter.filter(function(item) {
         return new Date(item.date).getTime() > new Date().setDate(new Date().getDate() - 4);
       }).sort(function(a, b) {
@@ -102,9 +87,6 @@ var getFilteredReviews = function(reviewsArr, filter) {
       });
       break;
     case 'reviews-good':
-      if (alert) {
-        reviewsContainer.removeChild(alert);
-      }
       reviewsToFilter = reviewsToFilter.filter(function(item) {
         return item.rating >= 3;
       }).sort(function(a, b) {
@@ -112,9 +94,6 @@ var getFilteredReviews = function(reviewsArr, filter) {
       });
       break;
     case 'reviews-bad':
-      if (alert) {
-        reviewsContainer.removeChild(alert);
-      }
       reviewsToFilter = reviewsToFilter.filter(function(item) {
         return item.rating < 3;
       }).sort(function(a, b) {
@@ -122,17 +101,19 @@ var getFilteredReviews = function(reviewsArr, filter) {
       });
       break;
     case 'reviews-popular':
-      if (alert) {
-        reviewsContainer.removeChild(alert);
-      }
       reviewsToFilter.sort(function(a, b) {
         return b.review_usefulness - a.review_usefulness;
       });
       break;
-    default:
-      reviewsToFilter = [];
-      p.appendChild(document.createTextNode(text));
-      reviewsContainer.insertBefore(p, reviewsList);
+  }
+
+  if (reviewsToFilter.length === 0) {
+    var p = document.createElement('p');
+    p.className = 'alert';
+    p.appendChild(document.createTextNode(text));
+    reviewsContainer.insertBefore(p, reviewsList);
+  } else if (alert) {
+    reviewsContainer.removeChild(alert);
   }
 
   return reviewsToFilter;
@@ -149,9 +130,9 @@ var setFiltrationEnabled = function() {
   };
 };
 
-
 getReviews(function(loadedReviews) {
   reviews = loadedReviews;
   setFiltrationEnabled();
   setFilterEnabled('reviews-all');
+  reviewsContainer.classList.remove('reviews-list-loading');
 });
