@@ -563,3 +563,7 @@ input[type=radio]:checked + .review-mark-label {
 .error::before {
   content: "\2217 \0020";
 }
+
+.alert {
+  text-align: center;
+}
